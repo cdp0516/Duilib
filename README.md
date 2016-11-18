@@ -1,2 +1,5 @@
-# Duilib
-duilib for me
+基于duilib某个版本，修改了某些功能供个人使用
+
+以下为改动记录：
+
+
