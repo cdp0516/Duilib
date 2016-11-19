@@ -183,6 +183,9 @@
     <ClCompile Include="Control\UIListEx.cpp">
       <Filter>Source Files\Control</Filter>
     </ClCompile>
+    <ClCompile Include="Layout\UIHorizontalSpliteLayout.cpp">
+      <Filter>Source Files\Layout</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StdAfx.h">
@@ -343,6 +346,9 @@
     </ClInclude>
     <ClInclude Include="Control\UIListEx.h">
       <Filter>Header Files\Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Layout\UIHorizontalSpliteLayout.h">
+      <Filter>Header Files\Layout</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -64,6 +64,7 @@
 #include "Layout/UITileLayout.h"
 #include "Layout/UITabLayout.h"
 #include "Layout/UIChildLayout.h"
+#include "Layout/UIHorizontalSpliteLayout.h"
 
 #include "Control/UIList.h"
 #include "Control/UICombo.h"
