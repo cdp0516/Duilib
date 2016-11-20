@@ -39,9 +39,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="StdAfx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="UIlib.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -183,11 +180,11 @@
     <ClCompile Include="Control\UIListEx.cpp">
       <Filter>Source Files\Control</Filter>
     </ClCompile>
+    <ClCompile Include="Layout\UIHorizontalSpliteLayout.cpp">
+      <Filter>Source Files\Layout</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="StdAfx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="UIlib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -343,6 +340,9 @@
     </ClInclude>
     <ClInclude Include="Control\UIListEx.h">
       <Filter>Header Files\Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Layout\UIHorizontalSpliteLayout.h">
+      <Filter>Header Files\Layout</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

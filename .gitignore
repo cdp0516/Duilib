@@ -1,0 +1,11 @@
+/ipch
+/libs
+/.vs
+/LibDebug
+/LibRelease
+/Debug
+/Release
+/Bin
+/Lib
+DuiLib.VC.db
+DuiLib.VC.VC.opendb

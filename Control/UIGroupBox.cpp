@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "../UIlib.h"
 #include "UIGroupBox.h"
 
 namespace DuiLib
@@ -116,7 +116,7 @@ namespace DuiLib
 	}
 	SIZE CGroupBoxUI::CalcrectSize(SIZE szAvailable)
 	{
-		RECT rcText = { 0, 0, MAX(szAvailable.cx, m_cxyFixed.cx), 20 };
+		RECT rcText = { 0, 0, max(szAvailable.cx, m_cxyFixed.cx), 20 };
 		rcText.left += m_rcTextPadding.left;
 		rcText.right -= m_rcTextPadding.right;
 

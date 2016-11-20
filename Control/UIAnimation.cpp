@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "../UIlib.h"
 #include "UIAnimation.h"
 #include <vector>
 #include <algorithm>

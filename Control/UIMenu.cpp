@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "../UIlib.h"
 
 #include "UIMenu.h"
 
@@ -693,7 +693,7 @@ namespace DuiLib {
 			}
 			CDuiString sText = GetText();
 
-			RECT rcText = { 0, 0, MAX(szAvailable.cx, m_cxyFixed.cx), 9999 };
+			RECT rcText = { 0, 0, max(szAvailable.cx, m_cxyFixed.cx), 9999 };
 			rcText.left += pInfo->rcTextPadding.left;
 			rcText.right -= pInfo->rcTextPadding.right;
 			if( pInfo->bShowHtml ) {   

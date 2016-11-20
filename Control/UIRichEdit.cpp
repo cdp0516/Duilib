@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "../UIlib.h"
 
 // These constants are for backward compatibility. They are the 
 // sizes used for initialization and reset in RichEdit 1.0
@@ -2186,7 +2186,7 @@ void CRichEditUI::SetPos(RECT rc, bool bNeedInvalidate)
 
 	int cxExpand = 0;
     int cxNeeded = 0;
-	if( nAdjustables > 0 ) cxExpand = MAX(0, (szAvailable.cx - cxFixed) / nAdjustables);
+	if( nAdjustables > 0 ) cxExpand = max(0, (szAvailable.cx - cxFixed) / nAdjustables);
 	// Position the elements
 	SIZE szRemaining = szAvailable;
 	int iPosX = rc.left;

@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "../UIlib.h"
 #include "ControlFactory.h"
 
 namespace DuiLib 
@@ -50,6 +50,7 @@ namespace DuiLib
 		INNER_REGISTER_DUICONTROL(CListExUI);
 		INNER_REGISTER_DUICONTROL(CListContainerHeaderItemUI);
 		INNER_REGISTER_DUICONTROL(CListTextExtElementUI);
+		INNER_REGISTER_DUICONTROL(CHorizontalSpliteLayoutUI);
 	}
 
 	CControlFactory::~CControlFactory()

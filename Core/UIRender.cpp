@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "../UIlib.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "..\Utils\stb_image.h"
@@ -1675,7 +1675,7 @@ namespace DuiLib {
 				if( bLineEnd ) bLineEnd = false;
 				if( !bLineDraw ) {
 					if( bInLink && iLinkIndex < nLinkRects ) {
-						::SetRect(&prcLinks[iLinkIndex++], ptLinkStart.x, ptLinkStart.y, MIN(pt.x, rc.right), pt.y + cyLine);
+						::SetRect(&prcLinks[iLinkIndex++], ptLinkStart.x, ptLinkStart.y, min(pt.x, rc.right), pt.y + cyLine);
 						CDuiString *pStr1 = (CDuiString*)(sLinks + iLinkIndex - 1);
 						CDuiString *pStr2 = (CDuiString*)(sLinks + iLinkIndex);
 						*pStr2 = *pStr1;
@@ -1744,7 +1744,7 @@ namespace DuiLib {
 								aFontArray.Add(pFontInfo);
 								pTm = &pFontInfo->tm;
 								::SelectObject(hDC, pFontInfo->hFont);
-								cyLine = MAX(cyLine, pTm->tmHeight + pTm->tmExternalLeading + (int)aPIndentArray.GetAt(aPIndentArray.GetSize() - 1));
+								cyLine = max(cyLine, pTm->tmHeight + pTm->tmExternalLeading + (int)aPIndentArray.GetAt(aPIndentArray.GetSize() - 1));
 							}
 							ptLinkStart = pt;
 							bInLink = true;
@@ -1762,7 +1762,7 @@ namespace DuiLib {
 								aFontArray.Add(pFontInfo);
 								pTm = &pFontInfo->tm;
 								::SelectObject(hDC, pFontInfo->hFont);
-								cyLine = MAX(cyLine, pTm->tmHeight + pTm->tmExternalLeading + (int)aPIndentArray.GetAt(aPIndentArray.GetSize() - 1));
+								cyLine = max(cyLine, pTm->tmHeight + pTm->tmExternalLeading + (int)aPIndentArray.GetAt(aPIndentArray.GetSize() - 1));
 							}
 						}
 						break;
@@ -1824,7 +1824,7 @@ namespace DuiLib {
 								pTm = &pFontInfo->tm;
 								::SelectObject(hDC, pFontInfo->hFont);
 							}
-							cyLine = MAX(cyLine, pTm->tmHeight + pTm->tmExternalLeading + (int)aPIndentArray.GetAt(aPIndentArray.GetSize() - 1));
+							cyLine = max(cyLine, pTm->tmHeight + pTm->tmExternalLeading + (int)aPIndentArray.GetAt(aPIndentArray.GetSize() - 1));
 						}
 						break;
 					case _T('i'):  // Italic or Image
@@ -1854,7 +1854,7 @@ namespace DuiLib {
 									aFontArray.Add(pFontInfo);
 									pTm = &pFontInfo->tm;
 									::SelectObject(hDC, pFontInfo->hFont);
-									cyLine = MAX(cyLine, pTm->tmHeight + pTm->tmExternalLeading + (int)aPIndentArray.GetAt(aPIndentArray.GetSize() - 1));
+									cyLine = max(cyLine, pTm->tmHeight + pTm->tmExternalLeading + (int)aPIndentArray.GetAt(aPIndentArray.GetSize() - 1));
 								}
 							}
 							else {
@@ -1932,10 +1932,10 @@ namespace DuiLib {
 												pImageInfo->bAlpha, 255);
 										}
 
-										cyLine = MAX(iHeight, cyLine);
+										cyLine = max(iHeight, cyLine);
 										pt.x += iWidth;
 										cyMinHeight = pt.y + iHeight;
-										cxMaxWidth = MAX(cxMaxWidth, pt.x);
+										cxMaxWidth = max(cxMaxWidth, pt.x);
 									}
 								}
 								else pstrNextStart = NULL;
@@ -1956,7 +1956,7 @@ namespace DuiLib {
 							while( *pstrText > _T('\0') && *pstrText <= _T(' ') ) pstrText = ::CharNext(pstrText);
 							int cyLineExtra = (int)_tcstol(pstrText, const_cast<LPTSTR*>(&pstrText), 10);
 							aPIndentArray.Add((LPVOID)cyLineExtra);
-							cyLine = MAX(cyLine, pTm->tmHeight + pTm->tmExternalLeading + cyLineExtra);
+							cyLine = max(cyLine, pTm->tmHeight + pTm->tmExternalLeading + cyLineExtra);
 						}
 						break;
 					case _T('r'):  // Raw Text
@@ -1987,7 +1987,7 @@ namespace DuiLib {
 								aFontArray.Add(pFontInfo);
 								pTm = &pFontInfo->tm;
 								::SelectObject(hDC, pFontInfo->hFont);
-								cyLine = MAX(cyLine, pTm->tmHeight + pTm->tmExternalLeading + (int)aPIndentArray.GetAt(aPIndentArray.GetSize() - 1));
+								cyLine = max(cyLine, pTm->tmHeight + pTm->tmExternalLeading + (int)aPIndentArray.GetAt(aPIndentArray.GetSize() - 1));
 							}
 						}
 						break;
@@ -1997,7 +1997,7 @@ namespace DuiLib {
 							while( *pstrText > _T('\0') && *pstrText <= _T(' ') ) pstrText = ::CharNext(pstrText);
 							int iWidth = (int) _tcstol(pstrText, const_cast<LPTSTR*>(&pstrText), 10);
 							pt.x += iWidth;
-							cxMaxWidth = MAX(cxMaxWidth, pt.x);
+							cxMaxWidth = max(cxMaxWidth, pt.x);
 						}
 						break;
 					case _T('y'):  // Y Indent
@@ -2033,7 +2033,7 @@ namespace DuiLib {
 					pstrText++;
 					if( pt.x > rc.left ) bLineEnd = true;
 					aPIndentArray.Remove(aPIndentArray.GetSize() - 1);
-					cyLine = MAX(cyLine, pTm->tmHeight + pTm->tmExternalLeading + (int)aPIndentArray.GetAt(aPIndentArray.GetSize() - 1));
+					cyLine = max(cyLine, pTm->tmHeight + pTm->tmExternalLeading + (int)aPIndentArray.GetAt(aPIndentArray.GetSize() - 1));
 					break;
 				case _T('s'):
 					{
@@ -2048,7 +2048,7 @@ namespace DuiLib {
 				case _T('a'):
 					{
 						if( iLinkIndex < nLinkRects ) {
-							if( !bLineDraw ) ::SetRect(&prcLinks[iLinkIndex], ptLinkStart.x, ptLinkStart.y, MIN(pt.x, rc.right), pt.y + pTm->tmHeight + pTm->tmExternalLeading);
+							if( !bLineDraw ) ::SetRect(&prcLinks[iLinkIndex], ptLinkStart.x, ptLinkStart.y, min(pt.x, rc.right), pt.y + pTm->tmHeight + pTm->tmExternalLeading);
 							iLinkIndex++;
 						}
 						aColorArray.Remove(aColorArray.GetSize() - 1);
@@ -2073,7 +2073,7 @@ namespace DuiLib {
 						}
 						pTm = &pFontInfo->tm;
 						::SelectObject(hDC, pFontInfo->hFont);
-						cyLine = MAX(cyLine, pTm->tmHeight + pTm->tmExternalLeading + (int)aPIndentArray.GetAt(aPIndentArray.GetSize() - 1));
+						cyLine = max(cyLine, pTm->tmHeight + pTm->tmExternalLeading + (int)aPIndentArray.GetAt(aPIndentArray.GetSize() - 1));
 					}
 					break;
 				}
@@ -2086,7 +2086,7 @@ namespace DuiLib {
 				::GetTextExtentPoint32(hDC, &pstrText[1], 1, &szSpace);
 				if( bDraw && bLineDraw ) ::TextOut(hDC, pt.x, pt.y + cyLineHeight - pTm->tmHeight - pTm->tmExternalLeading, &pstrText[1], 1);
 				pt.x += szSpace.cx;
-				cxMaxWidth = MAX(cxMaxWidth, pt.x);
+				cxMaxWidth = max(cxMaxWidth, pt.x);
 				pstrText++;pstrText++;pstrText++;
 			}
 			else if( !bInRaw &&  *pstrText == _T('{') && pstrText[2] == _T('}') && (pstrText[1] == _T('<')  || pstrText[1] == _T('>')) )
@@ -2095,7 +2095,7 @@ namespace DuiLib {
 				::GetTextExtentPoint32(hDC, &pstrText[1], 1, &szSpace);
 				if( bDraw && bLineDraw ) ::TextOut(hDC, pt.x,  pt.y + cyLineHeight - pTm->tmHeight - pTm->tmExternalLeading, &pstrText[1], 1);
 				pt.x += szSpace.cx;
-				cxMaxWidth = MAX(cxMaxWidth, pt.x);
+				cxMaxWidth = max(cxMaxWidth, pt.x);
 				pstrText++;pstrText++;pstrText++;
 			}
 			else if( !bInRaw &&  *pstrText == _T(' ') )
@@ -2106,7 +2106,7 @@ namespace DuiLib {
 				// underline formatting.
 				if( bDraw && bLineDraw ) ::TextOut(hDC, pt.x,  pt.y + cyLineHeight - pTm->tmHeight - pTm->tmExternalLeading, _T(" "), 1);
 				pt.x += szSpace.cx;
-				cxMaxWidth = MAX(cxMaxWidth, pt.x);
+				cxMaxWidth = max(cxMaxWidth, pt.x);
 				pstrText++;
 			}
 			else
@@ -2165,7 +2165,7 @@ namespace DuiLib {
 							pt.x = rc.right;
 						}
 						bLineEnd = true;
-						cxMaxWidth = MAX(cxMaxWidth, pt.x);
+						cxMaxWidth = max(cxMaxWidth, pt.x);
 						break;
 					}
 					if (!( ( p[0] >= _T('a') && p[0] <= _T('z') ) || ( p[0] >= _T('A') && p[0] <= _T('Z') ) )) {
@@ -2192,7 +2192,7 @@ namespace DuiLib {
 						::TextOut(hDC, ptPos.x + szText.cx, ptPos.y, _T("..."), 3);
 				}
 				pt.x += szText.cx;
-				cxMaxWidth = MAX(cxMaxWidth, pt.x);
+				cxMaxWidth = max(cxMaxWidth, pt.x);
 				pstrText += cchSize;
 			}
 
@@ -2240,8 +2240,8 @@ namespace DuiLib {
 
 		// Return size of text when requested
 		if( (uStyle & DT_CALCRECT) != 0 ) {
-			rc.bottom = MAX(cyMinHeight, pt.y + cyLine);
-			rc.right = MIN(rc.right, cxMaxWidth);
+			rc.bottom = max(cyMinHeight, pt.y + cyLine);
+			rc.right = min(rc.right, cxMaxWidth);
 		}
 
 		if( bDraw ) ::SelectClipRgn(hDC, hOldRgn);

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "../UIlib.h"
 #include "UIListEx.h"
 
 namespace DuiLib {

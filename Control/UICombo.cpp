@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "../UIlib.h"
 
 namespace DuiLib {
 
@@ -61,7 +61,7 @@ namespace DuiLib {
 			cyFixed += sz.cy;
 		}
 		//cyFixed += 4; // CVerticalLayoutUI 默认的Inset 调整
-		rc.bottom = rc.top + MIN(cyFixed, szDrop.cy);
+		rc.bottom = rc.top + min(cyFixed, szDrop.cy);
 
 		::MapWindowRect(pOwner->GetManager()->GetPaintWindow(), HWND_DESKTOP, &rc);
 
@@ -73,7 +73,7 @@ namespace DuiLib {
 			rc.left = rcOwner.left;
 			rc.right = rcOwner.right;
 			if( szDrop.cx > 0 ) rc.right = rc.left + szDrop.cx;
-			rc.top = rcOwner.top - MIN(cyFixed, szDrop.cy);
+			rc.top = rcOwner.top - min(cyFixed, szDrop.cy);
 			rc.bottom = rcOwner.top;
 			::MapWindowRect(pOwner->GetManager()->GetPaintWindow(), HWND_DESKTOP, &rc);
 		}

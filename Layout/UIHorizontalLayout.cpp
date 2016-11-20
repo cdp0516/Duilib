@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "../UIlib.h"
 #include "UIHorizontalLayout.h"
 
 namespace DuiLib
@@ -82,10 +82,10 @@ namespace DuiLib
 			}
 			cxFixed += sz.cx + pControl->GetPadding().left + pControl->GetPadding().right;
 
-			sz.cy = MAX(sz.cy, 0);
+			sz.cy = max(sz.cy, 0);
 			if( sz.cy < pControl->GetMinHeight() ) sz.cy = pControl->GetMinHeight();
 			if( sz.cy > pControl->GetMaxHeight() ) sz.cy = pControl->GetMaxHeight();
-			cyNeeded = MAX(cyNeeded, sz.cy + rcPadding.top + rcPadding.bottom);
+			cyNeeded = max(cyNeeded, sz.cy + rcPadding.top + rcPadding.bottom);
 			nEstimateNum++;
 		}
 		cxFixed += (nEstimateNum - 1) * m_iChildPadding;
@@ -93,7 +93,7 @@ namespace DuiLib
 		// Place elements
 		int cxNeeded = 0;
 		int cxExpand = 0;
-		if( nAdjustables > 0 ) cxExpand = MAX(0, (szAvailable.cx - cxFixed) / nAdjustables);
+		if( nAdjustables > 0 ) cxExpand = max(0, (szAvailable.cx - cxFixed) / nAdjustables);
 		// Position the elements
 		SIZE szRemaining = szAvailable;
 		int iPosX = rc.left;
@@ -127,7 +127,7 @@ namespace DuiLib
 				sz.cx = cxExpand;
 				// Distribute remaining to last element (usually round-off left-overs)
 				if( iAdjustable == nAdjustables ) {
-					sz.cx = MAX(0, szRemaining.cx - rcPadding.right - cxFixedRemaining);
+					sz.cx = max(0, szRemaining.cx - rcPadding.right - cxFixedRemaining);
 				} 
 				if( sz.cx < pControl->GetMinWidth() ) sz.cx = pControl->GetMinWidth();
 				if( sz.cx > pControl->GetMaxWidth() ) sz.cx = pControl->GetMaxWidth();

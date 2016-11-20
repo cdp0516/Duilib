@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "../UIlib.h"
 #include "UIWebBrowser.h"
 #include <atlconv.h>
 #include <atlcomcli.h>

@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "../UIlib.h"
 #include "UITileLayout.h"
 
 namespace DuiLib
@@ -133,7 +133,7 @@ namespace DuiLib
 					if( szTile.cy < pControl->GetMinHeight() ) szTile.cy = pControl->GetMinHeight();
 					if( szTile.cy > pControl->GetMaxHeight() ) szTile.cy = pControl->GetMaxHeight();
 
-					cyHeight = MAX(cyHeight, szTile.cy + rcPadding.top + rcPadding.bottom);
+					cyHeight = max(cyHeight, szTile.cy + rcPadding.top + rcPadding.bottom);
 					if( (++iIndex % m_nColumns) == 0) break;
 				}
 			}

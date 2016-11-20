@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "../UIlib.h"
 
 namespace DuiLib {
 
@@ -110,13 +110,13 @@ namespace DuiLib {
 				CVerticalLayoutUI::Remove(m_pHeader);
 				m_pHeader = static_cast<CListHeaderUI*>(pControl);
 			}
-			m_ListInfo.nColumns = MIN(m_pHeader->GetCount(), UILIST_MAX_COLUMNS);
+			m_ListInfo.nColumns = min(m_pHeader->GetCount(), UILIST_MAX_COLUMNS);
 			return CVerticalLayoutUI::AddAt(pControl, 0);
 		}
 		// We also need to recognize header sub-items
 		if( _tcsstr(pControl->GetClass(), _T("ListHeaderItemUI")) != NULL ) {
 			bool ret = m_pHeader->Add(pControl);
-			m_ListInfo.nColumns = MIN(m_pHeader->GetCount(), UILIST_MAX_COLUMNS);
+			m_ListInfo.nColumns = min(m_pHeader->GetCount(), UILIST_MAX_COLUMNS);
 			return ret;
 		}
 		// The list items should know about us
@@ -138,13 +138,13 @@ namespace DuiLib {
 				CVerticalLayoutUI::Remove(m_pHeader);
 				m_pHeader = static_cast<CListHeaderUI*>(pControl);
 			}
-			m_ListInfo.nColumns = MIN(m_pHeader->GetCount(), UILIST_MAX_COLUMNS);
+			m_ListInfo.nColumns = min(m_pHeader->GetCount(), UILIST_MAX_COLUMNS);
 			return CVerticalLayoutUI::AddAt(pControl, 0);
 		}
 		// We also need to recognize header sub-items
 		if( _tcsstr(pControl->GetClass(), _T("ListHeaderItemUI")) != NULL ) {
 			bool ret = m_pHeader->AddAt(pControl, iIndex);
-			m_ListInfo.nColumns = MIN(m_pHeader->GetCount(), UILIST_MAX_COLUMNS);
+			m_ListInfo.nColumns = min(m_pHeader->GetCount(), UILIST_MAX_COLUMNS);
 			return ret;
 		}
 		if (!m_pList->AddAt(pControl, iIndex)) return false;
@@ -227,7 +227,7 @@ namespace DuiLib {
 
 		if( m_pHeader == NULL ) return;
 		// Determine general list information and the size of header columns
-		m_ListInfo.nColumns = MIN(m_pHeader->GetCount(), UILIST_MAX_COLUMNS);
+		m_ListInfo.nColumns = min(m_pHeader->GetCount(), UILIST_MAX_COLUMNS);
 		// The header/columns may or may not be visible at runtime. In either case
 		// we should determine the correct dimensions...
 
@@ -1144,7 +1144,7 @@ namespace DuiLib {
 			CListHeaderUI* pHeader = m_pOwner->GetHeader();
 			if( pHeader == NULL ) return;
 			TListInfoUI* pInfo = m_pOwner->GetListInfo();
-			pInfo->nColumns = MIN(pHeader->GetCount(), UILIST_MAX_COLUMNS);
+			pInfo->nColumns = min(pHeader->GetCount(), UILIST_MAX_COLUMNS);
 
 			if( !pHeader->IsVisible() ) {
 				for( int it = 0; it < pHeader->GetCount(); it++ ) {
@@ -1207,10 +1207,10 @@ namespace DuiLib {
 			cyFixed += sz.cy + pControl->GetPadding().top + pControl->GetPadding().bottom;
 
 			RECT rcPadding = pControl->GetPadding();
-			sz.cx = MAX(sz.cx, 0);
+			sz.cx = max(sz.cx, 0);
 			if( sz.cx < pControl->GetMinWidth() ) sz.cx = pControl->GetMinWidth();
 			if( sz.cx > pControl->GetMaxWidth() ) sz.cx = pControl->GetMaxWidth();
-			cxNeeded = MAX(cxNeeded, sz.cx);
+			cxNeeded = max(cxNeeded, sz.cx);
 			nEstimateNum++;
 		}
 		cyFixed += (nEstimateNum - 1) * m_iChildPadding;
@@ -1218,7 +1218,7 @@ namespace DuiLib {
 		if( m_pOwner ) {
 			CListHeaderUI* pHeader = m_pOwner->GetHeader();
 			if( pHeader != NULL && pHeader->GetCount() > 0 ) {
-				cxNeeded = MAX(0, pHeader->EstimateSize(CDuiSize(rc.right - rc.left, rc.bottom - rc.top)).cx);
+				cxNeeded = max(0, pHeader->EstimateSize(CDuiSize(rc.right - rc.left, rc.bottom - rc.top)).cx);
 				if ( m_pHorizontalScrollBar && m_pHorizontalScrollBar->IsVisible())
 				{
 					int nOffset = m_pHorizontalScrollBar->GetScrollPos();
@@ -1232,7 +1232,7 @@ namespace DuiLib {
 		// Place elements
 		int cyNeeded = 0;
 		int cyExpand = 0;
-		if( nAdjustables > 0 ) cyExpand = MAX(0, (szAvailable.cy - cyFixed) / nAdjustables);
+		if( nAdjustables > 0 ) cyExpand = max(0, (szAvailable.cy - cyFixed) / nAdjustables);
 		// Position the elements
 		SIZE szRemaining = szAvailable;
 		int iPosY = rc.top;
@@ -1261,7 +1261,7 @@ namespace DuiLib {
 				sz.cy = cyExpand;
 				// Distribute remaining to last element (usually round-off left-overs)
 				if( iAdjustable == nAdjustables ) {
-					sz.cy = MAX(0, szRemaining.cy - rcPadding.bottom - cyFixedRemaining);
+					sz.cy = max(0, szRemaining.cy - rcPadding.bottom - cyFixedRemaining);
 				} 
 				if( sz.cy < pControl->GetMinHeight() ) sz.cy = pControl->GetMinHeight();
 				if( sz.cy > pControl->GetMaxHeight() ) sz.cy = pControl->GetMaxHeight();
@@ -1272,7 +1272,7 @@ namespace DuiLib {
 				cyFixedRemaining -= sz.cy;
 			}
 
-			sz.cx = MAX(cxNeeded, szAvailable.cx - rcPadding.left - rcPadding.right);
+			sz.cx = max(cxNeeded, szAvailable.cx - rcPadding.left - rcPadding.right);
 
 			if( sz.cx < pControl->GetMinWidth() ) sz.cx = pControl->GetMinWidth();
 			if( sz.cx > pControl->GetMaxWidth() ) sz.cx = pControl->GetMaxWidth();
@@ -1349,10 +1349,10 @@ namespace DuiLib {
 		SIZE cXY = {0, m_cxyFixed.cy};
 		if( cXY.cy == 0 && m_pManager != NULL ) {
 			for( int it = 0; it < m_items.GetSize(); it++ ) {
-				cXY.cy = MAX(cXY.cy,static_cast<CControlUI*>(m_items[it])->EstimateSize(szAvailable).cy);
+				cXY.cy = max(cXY.cy,static_cast<CControlUI*>(m_items[it])->EstimateSize(szAvailable).cy);
 			}
 			int nMin = m_pManager->GetDefaultFontInfo()->tm.tmHeight + 6;
-			cXY.cy = MAX(cXY.cy,nMin);
+			cXY.cy = max(cXY.cy,nMin);
 		}
 
 		for( int it = 0; it < m_items.GetSize(); it++ ) {
@@ -1403,7 +1403,7 @@ namespace DuiLib {
 
 		int cxExpand = 0;
 		int cxNeeded = 0;
-		if( nAdjustables > 0 ) cxExpand = MAX(0, (szAvailable.cx - cxFixed) / nAdjustables);
+		if( nAdjustables > 0 ) cxExpand = max(0, (szAvailable.cx - cxFixed) / nAdjustables);
 		// Position the elements
 		SIZE szRemaining = szAvailable;
 		int iPosX = rc.left;
@@ -1445,7 +1445,7 @@ namespace DuiLib {
 				sz.cx = cxExpand;
 				// Distribute remaining to last element (usually round-off left-overs)
 				if( iAdjustable == nAdjustables ) {
-					sz.cx = MAX(0, szRemaining.cx - rcPadding.right - cxFixedRemaining);
+					sz.cx = max(0, szRemaining.cx - rcPadding.right - cxFixedRemaining);
 				}
 				if( sz.cx < pControl->GetMinWidth() ) sz.cx = pControl->GetMinWidth();
 				if( sz.cx > pControl->GetMaxWidth() ) sz.cx = pControl->GetMaxWidth();
