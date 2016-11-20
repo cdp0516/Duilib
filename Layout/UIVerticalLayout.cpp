@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "../UIlib.h"
 #include "UIVerticalLayout.h"
 
 namespace DuiLib
@@ -81,11 +81,11 @@ namespace DuiLib
 				if( sz.cy > pControl->GetMaxHeight() ) sz.cy = pControl->GetMaxHeight();
 			}
 			cyFixed += sz.cy + pControl->GetPadding().top + pControl->GetPadding().bottom;
-
-			sz.cx = MAX(sz.cx, 0);
+			
+			sz.cx = max(sz.cx, 0);
 			if( sz.cx < pControl->GetMinWidth() ) sz.cx = pControl->GetMinWidth();
 			if( sz.cx > pControl->GetMaxWidth() ) sz.cx = pControl->GetMaxWidth();
-			cxNeeded = MAX(cxNeeded, sz.cx + rcPadding.left + rcPadding.right);
+			cxNeeded = max(cxNeeded, sz.cx + rcPadding.left + rcPadding.right);
 			nEstimateNum++;
 		}
 		cyFixed += (nEstimateNum - 1) * m_iChildPadding;
@@ -93,7 +93,7 @@ namespace DuiLib
 		// Place elements
 		int cyNeeded = 0;
 		int cyExpand = 0;
-		if( nAdjustables > 0 ) cyExpand = MAX(0, (szAvailable.cy - cyFixed) / nAdjustables);
+		if( nAdjustables > 0 ) cyExpand = max(0, (szAvailable.cy - cyFixed) / nAdjustables);
 		// Position the elements
 		SIZE szRemaining = szAvailable;
 		int iPosY = rc.top;
@@ -128,7 +128,7 @@ namespace DuiLib
 				sz.cy = cyExpand;
 				// Distribute remaining to last element (usually round-off left-overs)
 				if( iAdjustable == nAdjustables ) {
-					sz.cy = MAX(0, szRemaining.cy - rcPadding.bottom - cyFixedRemaining);
+					sz.cy = max(0, szRemaining.cy - rcPadding.bottom - cyFixedRemaining);
 				} 
 				if( sz.cy < pControl->GetMinHeight() ) sz.cy = pControl->GetMinHeight();
 				if( sz.cy > pControl->GetMaxHeight() ) sz.cy = pControl->GetMaxHeight();
@@ -312,19 +312,19 @@ namespace DuiLib
 	{
 		if( (m_uButtonState & UISTATE_CAPTURED) != 0 && bUseNew) {
 			if( m_iSepHeight >= 0 ) 
-				return CDuiRect(m_rcNewPos.left, MAX(m_rcNewPos.bottom - m_iSepHeight, m_rcNewPos.top), 
+				return CDuiRect(m_rcNewPos.left, max(m_rcNewPos.bottom - m_iSepHeight, m_rcNewPos.top), 
 				m_rcNewPos.right, m_rcNewPos.bottom);
 			else 
 				return CDuiRect(m_rcNewPos.left, m_rcNewPos.top, m_rcNewPos.right, 
-				MIN(m_rcNewPos.top - m_iSepHeight, m_rcNewPos.bottom));
+				min(m_rcNewPos.top - m_iSepHeight, m_rcNewPos.bottom));
 		}
 		else {
 			if( m_iSepHeight >= 0 ) 
-				return CDuiRect(m_rcItem.left, MAX(m_rcItem.bottom - m_iSepHeight, m_rcItem.top), m_rcItem.right, 
+				return CDuiRect(m_rcItem.left, max(m_rcItem.bottom - m_iSepHeight, m_rcItem.top), m_rcItem.right, 
 				m_rcItem.bottom);
 			else 
 				return CDuiRect(m_rcItem.left, m_rcItem.top, m_rcItem.right, 
-				MIN(m_rcItem.top - m_iSepHeight, m_rcItem.bottom));
+				min(m_rcItem.top - m_iSepHeight, m_rcItem.bottom));
 
 		}
 	}

@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "../UIlib.h"
 #include "ControlFactory.h"
 
 namespace DuiLib 

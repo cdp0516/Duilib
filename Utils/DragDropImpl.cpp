@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "../UIlib.h"
 /**************************************************************************
 THIS CODE AND INFORMATION IS PROVIDED 'AS IS' WITHOUT WARRANTY OF
 ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO

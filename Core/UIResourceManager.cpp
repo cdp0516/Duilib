@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "../UIlib.h"
 #include "UIResourceManager.h"
 
 namespace DuiLib {

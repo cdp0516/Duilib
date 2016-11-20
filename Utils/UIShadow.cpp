@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "../UIlib.h"
 #include "UIShadow.h"
 #include "math.h"
 #include "crtdbg.h"

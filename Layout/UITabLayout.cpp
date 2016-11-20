@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "../UIlib.h"
 #include "UITabLayout.h"
 
 namespace DuiLib
@@ -167,13 +167,13 @@ namespace DuiLib
 
 			SIZE sz = pControl->EstimateSize(szAvailable);
 			if( sz.cx == 0 ) {
-				sz.cx = MAX(0, szAvailable.cx);
+				sz.cx = max(0, szAvailable.cx);
 			}
 			if( sz.cx < pControl->GetMinWidth() ) sz.cx = pControl->GetMinWidth();
 			if( sz.cx > pControl->GetMaxWidth() ) sz.cx = pControl->GetMaxWidth();
 
 			if(sz.cy == 0) {
-				sz.cy = MAX(0, szAvailable.cy);
+				sz.cy = max(0, szAvailable.cy);
 			}
 			if( sz.cy < pControl->GetMinHeight() ) sz.cy = pControl->GetMinHeight();
 			if( sz.cy > pControl->GetMaxHeight() ) sz.cy = pControl->GetMaxHeight();

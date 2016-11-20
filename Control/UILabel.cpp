@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "../UIlib.h"
 #include "UILabel.h"
 
 #include <atlconv.h>

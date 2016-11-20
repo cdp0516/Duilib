@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "../UIlib.h"
 #include <zmouse.h>
 
 DECLARE_HANDLE(HZIP);	// An HZIP identifies a zip file that has been opened

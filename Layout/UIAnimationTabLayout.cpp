@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "../UIlib.h"
 #include "UIAnimationTabLayout.h"
 
 namespace DuiLib {

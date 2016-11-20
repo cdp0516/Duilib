@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "../UIlib.h"
 #include "RollTextUI.h"
 
 namespace DuiLib

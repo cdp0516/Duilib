@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "../UIlib.h"
 #include "UIHorizontalSpliteLayout.h"
 
 namespace DuiLib

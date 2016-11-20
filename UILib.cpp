@@ -45,9 +45,6 @@
 // Beware of bugs.
 //
 //
-
-
-#include "StdAfx.h"
 #include "UIlib.h"
 
 

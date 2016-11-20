@@ -1,7 +1,4 @@
-#ifndef WIN_IMPL_BASE_HPP
-#define WIN_IMPL_BASE_HPP
-
-#include "StdAfx.h"
+#include "../UIlib.h"
 
 namespace DuiLib
 {
