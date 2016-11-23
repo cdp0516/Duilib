@@ -50,7 +50,7 @@ namespace DuiLib
 		INNER_REGISTER_DUICONTROL(CListExUI);
 		INNER_REGISTER_DUICONTROL(CListContainerHeaderItemUI);
 		INNER_REGISTER_DUICONTROL(CListTextExtElementUI);
-		INNER_REGISTER_DUICONTROL(CHorizontalSpliteLayoutUI);
+		INNER_REGISTER_DUICONTROL(CHorizontalSplitLayoutUI);
 	}
 
 	CControlFactory::~CControlFactory()

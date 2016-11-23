@@ -486,9 +486,10 @@
     <ClCompile Include="Core\ControlFactory.cpp" />
     <ClCompile Include="Core\UIResourceManager.cpp" />
     <ClCompile Include="Layout\UIAnimationTabLayout.cpp" />
-    <ClCompile Include="Layout\UIHorizontalSpliteLayout.cpp" />
+    <ClCompile Include="Layout\UIHorizontalSplitLayout.cpp" />
     <ClCompile Include="UIlib.cpp" />
     <ClCompile Include="Utils\DragDropImpl.cpp" />
+    <ClCompile Include="Utils\log.cpp" />
     <ClCompile Include="Utils\UIShadow.cpp" />
     <ClCompile Include="Utils\WinImplBase.cpp" />
     <ClCompile Include="Utils\UIDelegate.cpp" />
@@ -553,11 +554,12 @@
     <ClInclude Include="Core\ControlFactory.h" />
     <ClInclude Include="Core\UIResourceManager.h" />
     <ClInclude Include="Layout\UIAnimationTabLayout.h" />
-    <ClInclude Include="Layout\UIHorizontalSpliteLayout.h" />
+    <ClInclude Include="Layout\UIHorizontalSplitLayout.h" />
     <ClInclude Include="UIlib.h" />
     <ClInclude Include="Utils\downloadmgr.h" />
     <ClInclude Include="Utils\DragDropImpl.h" />
     <ClInclude Include="Utils\FlashEventHandler.h" />
+    <ClInclude Include="Utils\log.h" />
     <ClInclude Include="Utils\observer_impl_base.h" />
     <ClInclude Include="Utils\stb_image.h" />
     <ClInclude Include="Utils\UIDelegate.h" />
