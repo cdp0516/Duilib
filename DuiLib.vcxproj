@@ -487,6 +487,7 @@
     <ClCompile Include="Core\UIResourceManager.cpp" />
     <ClCompile Include="Layout\UIAnimationTabLayout.cpp" />
     <ClCompile Include="Layout\UIHorizontalSplitLayout.cpp" />
+    <ClCompile Include="Layout\UIVerticalSplitLayout.cpp" />
     <ClCompile Include="UIlib.cpp" />
     <ClCompile Include="Utils\DragDropImpl.cpp" />
     <ClCompile Include="Utils\log.cpp" />
@@ -555,6 +556,7 @@
     <ClInclude Include="Core\UIResourceManager.h" />
     <ClInclude Include="Layout\UIAnimationTabLayout.h" />
     <ClInclude Include="Layout\UIHorizontalSplitLayout.h" />
+    <ClInclude Include="Layout\UIVerticalSplitLayout.h" />
     <ClInclude Include="UIlib.h" />
     <ClInclude Include="Utils\downloadmgr.h" />
     <ClInclude Include="Utils\DragDropImpl.h" />

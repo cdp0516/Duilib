@@ -86,6 +86,7 @@
 #include "Layout/UITabLayout.h"
 #include "Layout/UIChildLayout.h"
 #include "Layout/UIHorizontalSplitLayout.h"
+#include "Layout/UIVerticalSplitLayout.h"
 
 #include "Control/UIList.h"
 #include "Control/UICombo.h"

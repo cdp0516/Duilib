@@ -1,22 +1,21 @@
 #include "../UIlib.h"
-#include "UIHorizontalSplitLayout.h"
-#include "../Utils/log.h"
+#include "UIVerticalSplitLayout.h"
 
 namespace DuiLib
 {
-	IMPLEMENT_DUICONTROL(CHorizontalSplitLayoutUI);
+	IMPLEMENT_DUICONTROL(CVerticalSplitLayoutUI);
 
-	CHorizontalSplitLayoutUI::CHorizontalSplitLayoutUI():
+	CVerticalSplitLayoutUI::CVerticalSplitLayoutUI() :
 		m_splitterWidth(5),
 		m_bDrag(false),
 		m_dwSplitterBkColor(0xFFffffff),
 		m_dragSplitter(nullptr),
 		m_bFirstLayout(true),
-		m_oldHeight(0)
+		m_oldWidth(0)
 	{
 	}
 
-	CHorizontalSplitLayoutUI::~CHorizontalSplitLayoutUI()
+	CVerticalSplitLayoutUI::~CVerticalSplitLayoutUI()
 	{
 		for (auto splitter : m_splitters)
 		{
@@ -25,39 +24,39 @@ namespace DuiLib
 		m_splitters.clear();
 	}
 
-	LPCTSTR CHorizontalSplitLayoutUI::GetClass() const
+	LPCTSTR CVerticalSplitLayoutUI::GetClass() const
 	{
-		return L"HorizontalSpliteLayoutUI";
+		return L"VerticalSpliteLayoutUI";
 	}
 
-	LPVOID CHorizontalSplitLayoutUI::GetInterface(LPCTSTR pstrName)
+	LPVOID CVerticalSplitLayoutUI::GetInterface(LPCTSTR pstrName)
 	{
-		if (_tcsicmp(pstrName, DUI_CTR_HORIZONTALSPLITELAYOUT) == 0)
-			return static_cast<CHorizontalSplitLayoutUI*>(this);
+		if (_tcsicmp(pstrName, DUI_CTR_VERTICALSPLITELAYOUT) == 0)
+			return static_cast<CVerticalSplitLayoutUI*>(this);
 		return CContainerUI::GetInterface(pstrName);
 	}
 
-	bool CHorizontalSplitLayoutUI::Add(CControlUI * pControl)
+	bool CVerticalSplitLayoutUI::Add(CControlUI * pControl)
 	{
 		bool ret = CContainerUI::Add(pControl);
 
 		if (!m_splitters.empty())
 		{
-			CHorizontalSplitterUI* lastSplitter = m_splitters.back();
+			CVerticalSplitterUI* lastSplitter = m_splitters.back();
 			if (lastSplitter)
 			{
 				lastSplitter->m_nextControll = pControl;
 			}
 		}
 
-		CHorizontalSplitterUI* splitter = new CHorizontalSplitterUI();
+		CVerticalSplitterUI* splitter = new CVerticalSplitterUI();
 		splitter->m_prevControll = pControl;
 		splitter->SetBkColor(m_dwSplitterBkColor);
 		m_splitters.push_back(splitter);
 		return ret;
 	}
 
-	void CHorizontalSplitLayoutUI::SetPos(RECT rc, bool bNeedInvalidate)
+	void CVerticalSplitLayoutUI::SetPos(RECT rc, bool bNeedInvalidate)
 	{
 		CControlUI::SetPos(rc, bNeedInvalidate);
 		rc = m_rcItem;
@@ -76,9 +75,9 @@ namespace DuiLib
 		if (m_bFirstLayout)
 		{
 			m_bFirstLayout = false;
-			
+
 			int nAdjustables = 0;
-			int usedHeight = 0;
+			int usedWidth = 0;
 			for (int it1 = 0; it1 < m_items.GetSize(); it1++)
 			{
 				CControlUI* pControl = static_cast<CControlUI*>(m_items[it1]);
@@ -87,18 +86,18 @@ namespace DuiLib
 				if (pControl->IsFloat())
 					continue;
 
-				int cy = pControl->GetFixedHeight();
-				if (cy == 0)
+				int cx = pControl->GetFixedWidth();
+				if (cx == 0)
 					nAdjustables++;
 				else
-					usedHeight += cy;
+					usedWidth += cx;
 			}
 
-			int dh = ((szAvailable.cy - usedHeight) - (m_items.GetSize() - 1) * m_splitterWidth) / nAdjustables;
-			if (dh < 0)
-				dh = 0;
+			int dw = ((szAvailable.cx - usedWidth) - (m_items.GetSize() - 1) * m_splitterWidth) / nAdjustables;
+			if (dw < 0)
+				dw = 0;
 
-			int current_top = rc.top;
+			int current_left = rc.left;
 			for (int it2 = 0; it2 < m_items.GetSize(); it2++)
 			{
 				CControlUI* pControl = static_cast<CControlUI*>(m_items[it2]);
@@ -115,29 +114,30 @@ namespace DuiLib
 				int ctrl_h = pControl->GetFixedHeight();
 
 				if (ctrl_w <= 0)
-					ctrl_w = min(szAvailable.cx, pControl->GetMaxWidth());
+					ctrl_w = min(dw, pControl->GetMaxWidth()); 
 
 				if (ctrl_h <= 0)
-					ctrl_h = min(dh, pControl->GetMaxHeight());
+					ctrl_h = min(szAvailable.cy, pControl->GetMaxHeight());
 
-				int left = rc.left + rcPadding.left;
-				int top = current_top + rcPadding.top;
+
+				int left = current_left + rcPadding.left;
+				int top = rc.top + rcPadding.top;
 				int right = left + ctrl_w - rcPadding.right;
 				int bottom = top + ctrl_h - rcPadding.bottom;
 				if (it2 == m_items.GetSize() - 1)	// 最后一个控件，补上误差
-					bottom = rc.bottom - rcPadding.bottom;
+					right = rc.right - rcPadding.right;
 				RECT rcCtrl = { left, top, right, bottom };
 				pControl->SetPos(rcCtrl, false);
 				pControl->SetFixedWidth(ctrl_w);	// 将调整后的尺寸存入
 				pControl->SetFixedHeight(ctrl_h);	// drag时会修改这2个值
 
-				RECT rcSplitter = { left, bottom, right, bottom + m_splitterWidth };
+				RECT rcSplitter = { right, top, right + m_splitterWidth, bottom };
 				auto splitter = m_splitters[it2];
 				splitter->SetPos(rcSplitter, false);
 				if (!splitter->IsStatic())
-					m_oldHeight += ctrl_h;
+					m_oldWidth += ctrl_w;
 
-				current_top += ctrl_h + m_splitterWidth;
+				current_left += ctrl_w + m_splitterWidth;
 			}
 		}
 		else
@@ -154,45 +154,43 @@ namespace DuiLib
 				pControll = m_dragSplitter->m_prevControll;
 				assert(pControll);
 				rcControll = pControll->GetPos();
-				rcControll.bottom = rcSplitter.top;
-				rcControll.right = rcSplitter.right;
+				rcControll.right = rcSplitter.left;
 				pControll->SetPos(rcControll);
-				pControll->SetFixedHeight(rcControll.bottom - rcControll.top);
-				
+				pControll->SetFixedWidth(rcControll.right - rcControll.left);
+
 				// 设置下面的控件
 				pControll = m_dragSplitter->m_nextControll;
 				rcControll = pControll->GetPos();
-				rcControll.top = rcSplitter.bottom;
-				rcControll.right = rcSplitter.right;
+				rcControll.left = rcSplitter.right;
 				pControll->SetPos(rcControll);
-				pControll->SetFixedHeight(rcControll.bottom - rcControll.top);
+				pControll->SetFixedWidth(rcControll.right - rcControll.left);
 
 				//重新计算oldheight
-				m_oldHeight = 0;
+				m_oldWidth = 0;
 				for (auto splitter : m_splitters)
 				{
 					if (!splitter->IsStatic())
 					{
 						CControlUI* pControl = splitter->m_prevControll;
-						m_oldHeight += pControl->GetFixedHeight();
+						m_oldWidth += pControl->GetFixedWidth();
 					}
 				}
 			}
 			else  //窗口大小变化引起的setpos，重新计算所有控件位置
 			{
 				int nAdjustables = 0;
-				int usedHeight = 0;
+				int usedWidth = 0;
 				for (auto splitter : m_splitters)
 				{
 					if (splitter->IsStatic())
 					{
 						CControlUI* pControl = splitter->m_prevControll;
-						usedHeight += pControl->GetFixedHeight();
+						usedWidth += pControl->GetFixedWidth();
 					}
 				}
 
-				int unUsedHeight = szAvailable.cy - usedHeight;
-				int current_top = rc.top;
+				int unUsedWidth = szAvailable.cx - usedWidth;
+				int current_left = rc.left;
 				for (int it2 = 0; it2 < m_items.GetSize(); it2++)
 				{
 					CControlUI* pControl = static_cast<CControlUI*>(m_items[it2]);
@@ -208,33 +206,33 @@ namespace DuiLib
 					bool bStatic = splitter->IsStatic();
 
 					RECT rcPadding = pControl->GetPadding();
-					int oldHeight = pControl->GetFixedHeight();
-					int newHeight = oldHeight * unUsedHeight / m_oldHeight;
-					int ctrl_w = min(szAvailable.cx, pControl->GetMaxWidth());
-					int ctrl_h = bStatic ? pControl->GetFixedHeight() : newHeight;
+					int oldWidth = pControl->GetFixedWidth();
+					int newWidth = oldWidth * unUsedWidth / m_oldWidth;
+					int ctrl_w = bStatic ? pControl->GetFixedWidth() : newWidth;  
+					int ctrl_h = min(szAvailable.cy, pControl->GetMaxHeight());
 
-					int left = rc.left + rcPadding.left;
-					int top = current_top + rcPadding.top;
-					int right = rc.left + ctrl_w - rcPadding.right;
+					int left = current_left + rcPadding.left; 
+					int top = rc.top + rcPadding.top;
+					int right = left + ctrl_w - rcPadding.right;
 					int bottom = top + ctrl_h - rcPadding.bottom;
 					if (it2 == m_items.GetSize() - 1)	// 最后一个控件，补上误差
-						bottom = rc.bottom - rcPadding.bottom;
+						right = rc.right - rcPadding.right;
 					RECT rcCtrl = { left, top, right, bottom };
 					pControl->SetPos(rcCtrl, false);
-					
-					RECT rcSplitter = { left, bottom, right, bottom + m_splitterWidth };
+
+					RECT rcSplitter = { right, top, right + m_splitterWidth, bottom };
 					splitter->SetPos(rcSplitter, false);
 
-					current_top += ctrl_h + m_splitterWidth;
+					current_left += ctrl_w + m_splitterWidth;
 				}
 			}
 		}
 	}
 
-	void CHorizontalSplitLayoutUI::DoPaint(HDC hDC, const RECT & rcPaint)
+	void CVerticalSplitLayoutUI::DoPaint(HDC hDC, const RECT & rcPaint)
 	{
 		RECT rcTemp = { 0 };
-		if (!::IntersectRect(&rcTemp, &rcPaint, &m_rcItem)) 
+		if (!::IntersectRect(&rcTemp, &rcPaint, &m_rcItem))
 			return;
 
 		//CRenderClip clip;
@@ -271,24 +269,24 @@ namespace DuiLib
 		{
 			CRenderClip childClip;
 			CRenderClip::GenerateClip(hDC, rcTemp, childClip);
-			for (int it = 0; it < m_items.GetSize(); it++) 
+			for (int it = 0; it < m_items.GetSize(); it++)
 			{
 				CControlUI* pControl = static_cast<CControlUI*>(m_items[it]);
-				if (!pControl->IsVisible()) 
+				if (!pControl->IsVisible())
 					continue;
-				if (!::IntersectRect(&rcTemp, &rcPaint, &pControl->GetPos())) 
+				if (!::IntersectRect(&rcTemp, &rcPaint, &pControl->GetPos()))
 					continue;
 				if (pControl->IsFloat())
 				{
-					if (!::IntersectRect(&rcTemp, &m_rcItem, &pControl->GetPos())) 
+					if (!::IntersectRect(&rcTemp, &m_rcItem, &pControl->GetPos()))
 						continue;
 					CRenderClip::UseOldClipBegin(hDC, childClip);
 					pControl->DoPaint(hDC, rcPaint);
 					CRenderClip::UseOldClipEnd(hDC, childClip);
 				}
-				else 
+				else
 				{
-					if (!::IntersectRect(&rcTemp, &rc, &pControl->GetPos())) 
+					if (!::IntersectRect(&rcTemp, &rc, &pControl->GetPos()))
 						continue;
 					pControl->DoPaint(hDC, rcPaint);
 				}
@@ -299,13 +297,13 @@ namespace DuiLib
 		}
 	}
 
-	void CHorizontalSplitLayoutUI::DoEvent(TEventUI & event)
+	void CVerticalSplitLayoutUI::DoEvent(TEventUI & event)
 	{
-		if (!IsMouseEnabled() && event.Type > UIEVENT__MOUSEBEGIN && event.Type < UIEVENT__MOUSEEND) 
+		if (!IsMouseEnabled() && event.Type > UIEVENT__MOUSEBEGIN && event.Type < UIEVENT__MOUSEEND)
 		{
 			if (m_pParent != NULL)
 				m_pParent->DoEvent(event);
-			else 
+			else
 				CContainerUI::DoEvent(event);
 			return;
 		}
@@ -318,7 +316,7 @@ namespace DuiLib
 		{
 			Invalidate();
 		}
-		
+
 		if (event.Type == UIEVENT_BUTTONDOWN || event.Type == UIEVENT_DBLCLICK)
 		{
 			for (auto splitter : m_splitters)
@@ -333,7 +331,7 @@ namespace DuiLib
 					break;
 				}
 			}
-			
+
 			return;
 		}
 		if (event.Type == UIEVENT_MOUSEMOVE)
@@ -350,7 +348,7 @@ namespace DuiLib
 				}
 			}
 			if (hover)
-				::SetCursor(::LoadCursor(NULL, (IDC_SIZENS)));
+				::SetCursor(::LoadCursor(NULL, (IDC_SIZEWE)));
 			else
 				::SetCursor(::LoadCursor(NULL, (IDC_ARROW)));
 
@@ -358,8 +356,8 @@ namespace DuiLib
 			if (m_bDrag && m_dragSplitter)
 			{
 				RECT pos = m_dragSplitter->GetPos();
-				pos.top += (event.ptMouse.y - m_ptDrag.y);
-				pos.bottom += (event.ptMouse.y - m_ptDrag.y);
+				pos.left += (event.ptMouse.x - m_ptDrag.x);
+				pos.right += (event.ptMouse.x - m_ptDrag.x);
 				m_dragSplitter->SetPos(pos);
 				m_ptDrag = event.ptMouse;
 				//LOG("drag spliter: %d-%d", m_ptDrag.x, m_ptDrag.y /*pos.top, pos.bottom*/);
@@ -374,7 +372,7 @@ namespace DuiLib
 			m_dragSplitter = nullptr;
 			return;
 		}
-		
+
 		if (event.Type == UIEVENT_MOUSEENTER)
 		{
 			//if (IsEnabled()) {
@@ -389,21 +387,21 @@ namespace DuiLib
 			//	Invalidate();
 			//}
 		}
-		
+
 		CContainerUI::DoEvent(event);
 	}
 
-	void CHorizontalSplitLayoutUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
+	void CVerticalSplitLayoutUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
 	{
 		if (_tcsicmp(pstrName, _T("spliterwidth")) == 0)
 		{
 			SetSpliterWidth(_ttoi(pstrValue));
 		}
-		else if (_tcsicmp(pstrName, _T("spliterbkcolor")) == 0) 
+		else if (_tcsicmp(pstrName, _T("spliterbkcolor")) == 0)
 		{
-			while (*pstrValue > _T('\0') && *pstrValue <= _T(' ')) 
+			while (*pstrValue > _T('\0') && *pstrValue <= _T(' '))
 				pstrValue = ::CharNext(pstrValue);
-			if (*pstrValue == _T('#')) 
+			if (*pstrValue == _T('#'))
 				pstrValue = ::CharNext(pstrValue);
 			LPTSTR pstr = NULL;
 			DWORD clrColor = _tcstoul(pstrValue, &pstr, 16);
@@ -418,25 +416,25 @@ namespace DuiLib
 				m_splitters[i]->SetStatic(true);
 			}
 		}
-		return 
+		return
 			CContainerUI::SetAttribute(pstrName, pstrValue);
 	}
 
-	void CHorizontalSplitLayoutUI::SetSpliterWidth(int w)
+	void CVerticalSplitLayoutUI::SetSpliterWidth(int w)
 	{
 		m_splitterWidth = w;
 	}
 
-	void CHorizontalSplitLayoutUI::SetSpliterBkColor(DWORD dwBackColor)
+	void CVerticalSplitLayoutUI::SetSpliterBkColor(DWORD dwBackColor)
 	{
-		if (m_dwSplitterBkColor == dwBackColor) 
+		if (m_dwSplitterBkColor == dwBackColor)
 			return;
 
 		m_dwSplitterBkColor = dwBackColor;
 		Invalidate();
 	}
 
-	void CHorizontalSplitLayoutUI::SplitString2Int(LPCTSTR str, std::set<int> &result)
+	void CVerticalSplitLayoutUI::SplitString2Int(LPCTSTR str, std::set<int> &result)
 	{
 		TCHAR buf[30] = { 0 };
 		bool will_not_number = false;
@@ -474,10 +472,9 @@ namespace DuiLib
 						break;
 					}
 				}
-				
+
 				str++;
 			}
 		}
 	}
 }
-

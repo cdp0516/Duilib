@@ -186,6 +186,9 @@
     <ClCompile Include="Layout\UIHorizontalSplitLayout.cpp">
       <Filter>Source Files\Layout</Filter>
     </ClCompile>
+    <ClCompile Include="Layout\UIVerticalSplitLayout.cpp">
+      <Filter>Source Files\Layout</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UIlib.h">
@@ -348,6 +351,9 @@
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Layout\UIHorizontalSplitLayout.h">
+      <Filter>Header Files\Layout</Filter>
+    </ClInclude>
+    <ClInclude Include="Layout\UIVerticalSplitLayout.h">
       <Filter>Header Files\Layout</Filter>
     </ClInclude>
   </ItemGroup>
