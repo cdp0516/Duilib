@@ -1367,11 +1367,6 @@ namespace DuiLib {
 					pControl->Event(event);
 					m_pEventHover = pControl;
 				}
-				if (m_pEventHover != NULL && pControl == m_pEventHover) { // 增加hove控件的mouseover，可能会引起bug
-					event.Type = UIEVENT_MOUSEMOVE;
-					event.pSender = m_pEventHover;
-					m_pEventHover->Event(event);
-				}
 				if( m_pEventClick != NULL ) {
 					event.Type = UIEVENT_MOUSEMOVE;
 					event.pSender = m_pEventClick;
