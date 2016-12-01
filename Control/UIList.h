@@ -289,7 +289,7 @@ namespace DuiLib {
 	/////////////////////////////////////////////////////////////////////////////////////
 	//
 
-	class UILIB_API CListHeaderItemUI : public CContainerUI
+	class UILIB_API CListHeaderItemUI : public CHorizontalLayoutUI
 	{
 		DECLARE_DUICONTROL(CListHeaderItemUI)
 
