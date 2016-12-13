@@ -57,6 +57,41 @@ namespace DuiLib {
 		return true;
 	}
 
+	bool CAnimationTabLayoutUI::SelectItem(CControlUI * ctrl)
+	{
+		if (m_pCurrentControl == ctrl)
+			return true;
+
+		int iOldSel = m_iCurSel;
+		for (int it = 0; it < m_items.GetSize(); it++)
+		{
+			CControlUI *item = GetItemAt(it);
+			if (ctrl == item)
+			{
+				ctrl->SetFocus();
+				m_bControlVisibleFlag = false;
+				m_pCurrentControl = ctrl;
+				if (it > m_iCurSel) 
+					m_nPositiveDirection = -1;
+				if (it < m_iCurSel) 
+					m_nPositiveDirection = 1;
+				m_iCurSel = it;
+				AnimationSwitch();
+			}
+			else
+			{
+				item->SetVisible(false);
+			}
+		}
+		NeedParentUpdate();
+
+		if (m_pManager != NULL) {
+			m_pManager->SetNextTabControl();
+			m_pManager->SendNotify(this, _T("tabselect"), m_iCurSel, iOldSel);
+		}
+		return true;
+	}
+
 	void CAnimationTabLayoutUI::AnimationSwitch()
 	{
 		m_rcItemOld = m_rcItem;
@@ -105,7 +140,7 @@ namespace DuiLib {
 		if( !m_bIsVerticalDirection )
 		{
 			iStepLen = ( m_rcItemOld.right - m_rcItemOld.left ) * m_nPositiveDirection / nTotalFrame;
-			if( nCurFrame != nTotalFrame )
+			if( nCurFrame != nTotalFrame - 1 )
 			{
 				m_rcCurPos.left = m_rcCurPos.left + iStepLen;
 				m_rcCurPos.right = m_rcCurPos.right +iStepLen;			
@@ -118,7 +153,7 @@ namespace DuiLib {
 		else
 		{
 			iStepLen = ( m_rcItemOld.bottom - m_rcItemOld.top ) * m_nPositiveDirection / nTotalFrame;
-			if( nCurFrame != nTotalFrame )
+			if( nCurFrame != nTotalFrame - 1)
 			{
 				m_rcCurPos.top = m_rcCurPos.top + iStepLen;
 				m_rcCurPos.bottom = m_rcCurPos.bottom +iStepLen;			

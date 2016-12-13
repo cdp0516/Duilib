@@ -13,6 +13,7 @@ namespace DuiLib
 		LPVOID GetInterface(LPCTSTR pstrName);
 
 		bool SelectItem( int iIndex );
+		bool SelectItem(CControlUI* ctrl);
 		void AnimationSwitch();
 		void DoEvent(TEventUI& event);
 		void OnTimer( int nTimerID );
