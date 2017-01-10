@@ -122,8 +122,6 @@ namespace DuiLib {
 			pData->m_bFirstLoop = FALSE;
 		}
 
-		OnAnimationStep(pData->m_nTotalFrame, nCurFrame, nAnimationID);
-
 		if(nCurFrame >= pData->m_nTotalFrame)
 		{
 			OnAnimationStop(nAnimationID);
@@ -137,6 +135,10 @@ namespace DuiLib {
 				m_pImp->m_arAnimations.erase(std::remove(m_pImp->m_arAnimations.begin(), m_pImp->m_arAnimations.end(), pData), m_pImp->m_arAnimations.end());
 				pData = NULL;
 			}
+		}
+		else
+		{
+			OnAnimationStep(pData->m_nTotalFrame, nCurFrame, nAnimationID);
 		}
 
 		if( NULL != pData )

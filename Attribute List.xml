@@ -858,7 +858,7 @@
 		<Attribute name="scrollstepsize" default="0" type="INT" comment="容器的滚动条滚动步长，0代表使用默认步长"/>
 		<Attribute name="sepheight" default="0" type="INT" comment="分隔符高度,正负表示分隔符在顶部还是底部,如(4)"/>
 		<Attribute name="sepimm" default="false" type="BOOL" comment="拖动分隔符是否立即改变大小,如(false)"/>
-		<Attribute name="header" default="true" type="BOOL" comment="是否显示表头,如(true),隐藏则设置为hidden"/>
+		<Attribute name="header" default="true" type="STRING" comment="是否显示表头,如(true),隐藏则设置为hidden"/>
 		<Attribute name="headerbkimage" default="" type="STRING" comment="表头背景图片"/>
 		<Attribute name="scrollselect" default="false" type="BOOL" comment="是否随滚动改变选中项,如(false)"/>
 		<Attribute name="itemfont" default="-1" type="INT" comment="item的字体id,如(0)"/>
