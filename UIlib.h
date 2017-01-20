@@ -85,7 +85,8 @@
 #include "Layout/UITileLayout.h"
 #include "Layout/UITabLayout.h"
 #include "Layout/UIChildLayout.h"
-#include "Layout/UIHorizontalSpliteLayout.h"
+#include "Layout/UIHorizontalSplitLayout.h"
+#include "Layout/UIVerticalSplitLayout.h"
 
 #include "Control/UIList.h"
 #include "Control/UICombo.h"
@@ -118,7 +119,6 @@
 #include "Control/UIGroupBox.h"
 #include "Control/RollTextUI.h"
 #include "Control/UIColorPalette.h"
-#include "Control/UIListEx.h"
 
 #pragma comment( lib, "comctl32.lib" )
 #pragma comment( lib, "GdiPlus.lib" )

@@ -1367,11 +1367,6 @@ namespace DuiLib {
 					pControl->Event(event);
 					m_pEventHover = pControl;
 				}
-				if (m_pEventHover != NULL && pControl == m_pEventHover) { // 增加hove控件的mouseover，可能会引起bug
-					event.Type = UIEVENT_MOUSEMOVE;
-					event.pSender = m_pEventHover;
-					m_pEventHover->Event(event);
-				}
 				if( m_pEventClick != NULL ) {
 					event.Type = UIEVENT_MOUSEMOVE;
 					event.pSender = m_pEventClick;
@@ -1462,10 +1457,6 @@ namespace DuiLib {
 				CControlUI* pClick = m_pEventClick;
 				m_pEventClick = NULL;
 				pClick->Event(event);
-
-				if (m_pEventHover != NULL) { // 增加hove控件的lbuttonup，可能会引起bug
-					m_pEventHover->Event(event);
-				}
 			}
 			break;
 		case WM_RBUTTONDOWN:

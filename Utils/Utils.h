@@ -4,6 +4,7 @@
 #pragma once
 #include "OAIdl.h"
 #include <vector>
+#include <typeinfo>
 
 namespace DuiLib
 {
@@ -302,6 +303,193 @@ namespace DuiLib
 			VariantClear(this); 
 		}
 	};
+
+	class CDuiAny
+	{
+	public: // structors
+
+		CDuiAny()
+			: content(0)
+		{
+		}
+
+		template<typename ValueType>
+		CDuiAny(const ValueType & value)
+			: content(new holder<ValueType>(value))
+		{
+		}
+
+		CDuiAny(const CDuiAny & other)
+			: content(other.content ? other.content->clone() : 0)
+		{
+		}
+
+		~CDuiAny() 
+		{
+			delete content;
+		}
+
+	public: // modifiers
+
+		CDuiAny & swap(CDuiAny & rhs) 
+		{
+			std::swap(content, rhs.content);
+			return *this;
+		}
+
+		CDuiAny & operator=(const CDuiAny& rhs)
+		{
+			CDuiAny(rhs).swap(*this);
+			return *this;
+		}
+
+		// move assignement
+		CDuiAny & operator=(CDuiAny&& rhs) 
+		{
+			rhs.swap(*this);
+			CDuiAny().swap(rhs);
+			return *this;
+		}
+
+		// Perfect forwarding of ValueType
+		template <class ValueType>
+		CDuiAny & operator=(ValueType&& rhs)
+		{
+			CDuiAny(static_cast<ValueType&&>(rhs)).swap(*this);
+			return *this;
+		}
+
+	public: // queries
+
+		bool empty() const 
+		{
+			return !content;
+		}
+
+		void clear() 
+		{
+			CDuiAny().swap(*this);
+		}
+
+		const type_info& type() const 
+		{
+			return content ? content->type() : typeid(void);
+		}
+
+	private: // types
+		class placeholder
+		{
+		public: // structors
+
+			virtual ~placeholder()
+			{
+			}
+
+		public: // queries
+			virtual const type_info& type() const = 0;
+			virtual placeholder * clone() const = 0;
+		};
+
+		template<typename ValueType>
+		class holder : public placeholder
+		{
+		public: // structors
+			holder(const ValueType & value)
+				: held(value)
+			{
+			}
+
+		public: // queries
+			virtual const type_info& type() const
+			{
+				return typeid(ValueType);
+			}
+
+			virtual placeholder * clone() const
+			{
+				return new holder(held);
+			}
+
+		public: // representation
+			ValueType held;
+
+		private: // intentionally left unimplemented
+			holder & operator=(const holder &);
+		};
+
+	private: // representation
+		template<typename ValueType>
+		friend ValueType * any_cast(CDuiAny *) ;
+
+		template<typename ValueType>
+		friend ValueType * unsafe_any_cast(CDuiAny *) ;
+
+		placeholder * content;
+	};
+
+	inline void swap(CDuiAny & lhs, CDuiAny & rhs) 
+	{
+		lhs.swap(rhs);
+	}
+
+	class  bad_any_cast : public std::exception
+	{
+	public:
+		virtual const char * what() const throw()
+		{
+			return "boost::bad_any_cast: "
+				"failed conversion using boost::any_cast";
+		}
+	};
+
+	template<typename ValueType>
+	ValueType * any_cast(CDuiAny * operand)
+	{
+		return operand && operand->type() == typeid(ValueType) ?
+			&static_cast<CDuiAny::holder<ValueType>*>(operand->content)->held : 0;
+	}
+
+	template<typename ValueType>
+	inline const ValueType * any_cast(const CDuiAny * operand)
+	{
+		return any_cast<ValueType>(const_cast<CDuiAny *>(operand));
+	}
+
+	template<typename ValueType>
+	ValueType any_cast(CDuiAny & operand)
+	{
+		typedef typename remove_reference<ValueType>::type nonref;
+
+		nonref * result = any_cast<nonref>(&operand);
+		if (!result)
+			return nullptr;
+
+		return *result;
+	}
+
+	template<typename ValueType>
+	inline ValueType any_cast(const CDuiAny & operand)
+	{
+		typedef typename remove_reference<ValueType>::type nonref;
+		return any_cast<const nonref &>(const_cast<any &>(operand));
+	}
+
+	// Note: The "unsafe" versions of any_cast are not part of the
+	// public interface and may be removed at any time. They are
+	// required where we know what type is stored in the any and can't
+	// use typeid() comparison, e.g., when our types may travel across
+	// different shared libraries.
+	template<typename ValueType>
+	inline ValueType * unsafe_any_cast(CDuiAny * operand)
+	{
+		return &static_cast<any::holder<ValueType> *>(operand->content)->held;
+	}
+
+	template<typename ValueType>
+	inline const ValueType * unsafe_any_cast(const CDuiAny * operand)
+	{
+		return unsafe_any_cast<ValueType>(const_cast<any *>(operand));
+	}
 
 }// namespace DuiLib
 

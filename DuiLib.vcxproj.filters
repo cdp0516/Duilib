@@ -177,10 +177,13 @@
     <ClCompile Include="Control\UIColorPalette.cpp">
       <Filter>Source Files\Control</Filter>
     </ClCompile>
-    <ClCompile Include="Control\UIListEx.cpp">
-      <Filter>Source Files\Control</Filter>
+    <ClCompile Include="Utils\log.cpp">
+      <Filter>Source Files\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Layout\UIHorizontalSpliteLayout.cpp">
+    <ClCompile Include="Layout\UIHorizontalSplitLayout.cpp">
+      <Filter>Source Files\Layout</Filter>
+    </ClCompile>
+    <ClCompile Include="Layout\UIVerticalSplitLayout.cpp">
       <Filter>Source Files\Layout</Filter>
     </ClCompile>
   </ItemGroup>
@@ -338,10 +341,13 @@
     <ClInclude Include="Control\UIColorPalette.h">
       <Filter>Header Files\Control</Filter>
     </ClInclude>
-    <ClInclude Include="Control\UIListEx.h">
-      <Filter>Header Files\Control</Filter>
+    <ClInclude Include="Utils\log.h">
+      <Filter>Header Files\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Layout\UIHorizontalSpliteLayout.h">
+    <ClInclude Include="Layout\UIHorizontalSplitLayout.h">
+      <Filter>Header Files\Layout</Filter>
+    </ClInclude>
+    <ClInclude Include="Layout\UIVerticalSplitLayout.h">
       <Filter>Header Files\Layout</Filter>
     </ClInclude>
   </ItemGroup>

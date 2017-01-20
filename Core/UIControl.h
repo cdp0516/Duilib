@@ -138,6 +138,10 @@ namespace DuiLib {
 		virtual void SetUserData(LPCTSTR pstrText); // 辅助函数，供用户使用
 		virtual UINT_PTR GetTag() const; // 辅助函数，供用户使用
 		virtual void SetTag(UINT_PTR pTag); // 辅助函数，供用户使用
+		template <class AnyType>
+		void SetTag(const AnyType& t);
+		template <class AnyType>
+		AnyType GetTag();
 
 		// 一些重要的属性
 		virtual bool IsVisible() const;
@@ -245,7 +249,21 @@ namespace DuiLib {
 		RECT m_rcPaint;
 		RECT m_rcBorderSize;
 	    HINSTANCE m_instance;
+
+		CDuiAny m_anyTag;
 	};
+
+	template<class AnyType>
+	inline void CControlUI::SetTag(const AnyType & t)
+	{
+		m_anyTag = t;
+	}
+
+	template<class AnyType>
+	inline AnyType CControlUI::GetTag()
+	{
+		return any_cast<AnyType>(m_anyTag); 
+	}
 
 } // namespace DuiLib
 

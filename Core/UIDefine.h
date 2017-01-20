@@ -309,7 +309,8 @@ protected:                                                                \
 
 #define DUI_CTR_COLORPALETTE					  (_T("ColorPalette"))
 
-#define  DUI_CTR_HORIZONTALSPLITELAYOUT           (_T("HorizontalSpliteLayout"))
+#define  DUI_CTR_HORIZONTALSPLITELAYOUT			(_T("HorizontalSpliteLayout"))
+#define  DUI_CTR_VERTICALSPLITELAYOUT			(_T("VerticalSpliteLayout"))
 	///
 	//////////////END控件名称宏定义//////////////////////////////////////////////////
 
