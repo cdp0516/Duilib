@@ -406,7 +406,7 @@
 		<Attribute name="showhtml" default="false" type="BOOL" comment="是否使用类html富文本绘制,如(false)"/>
 		<Attribute name="enabledeffect" default="false" type="BOOL" comment="是否使用字体特效，使用下面文字特效属性必须该属性设置为true方有效"/>
 		<Attribute name="align" default="left" type="STRING" comment="文字横向对齐方式,取值left、center、right"/>
-		<Attribute name="valign" default="center" type="STRING" comment="文字纵向对齐方式,取值top、center、bottom"/>
+		<Attribute name="valign" default="top" type="STRING" comment="文字纵向对齐方式,取值top、vcenter、bottom"/>
 		<Attribute name="rhaa" default="0" type="STRING" comment="字体质量0-5"/>
 		<Attribute name="enabledstroke" default="false" type="BOOL" comment="是否使用描边效果"/>
 		<Attribute name="strokecolor" default="0x00000000" type="STRING" comment="字体描边的颜色"/>
@@ -751,6 +751,7 @@
 		<Attribute name="textpadding" default="0,0,0,0" type="RECT" comment="文字显示的边距,如(2,2,2,2)"/>
 		<Attribute name="showhtml" default="false" type="BOOL" comment="是否使用类html富文本绘制,如(false)"/>
 		<Attribute name="readonly" default="false" type="BOOL" comment="是否只读,如(false)"/>
+		<Attribute name="numberonly" default="false" type="BOOL" comment="是否只输入数字"/>
 		<Attribute name="password" default="false" type="BOOL" comment="是否显示密码字符,如(false)"/>
 		<Attribute name="maxchar" default="255" type="INT" comment="输入字符最大长度，如(100)"/>
 		<Attribute name="normalimage" default="" type="STRING" comment="普通状态图片"/>
