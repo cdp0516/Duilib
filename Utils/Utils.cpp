@@ -228,6 +228,26 @@ namespace DuiLib
 		return true;
 	}
 
+	bool CStdPtrArray::MoveTo(int iIndex, LPVOID pData)
+	{
+		LPVOID pTemp = pData;
+		int cur = Find(pData);
+		if (iIndex == cur)
+		{
+			return true;
+		}
+		else if(iIndex > cur)
+		{
+			memmove(&m_ppVoid[cur], &m_ppVoid[cur + 1], (iIndex - cur) * sizeof(LPVOID));
+		}
+		else
+		{
+			memmove(&m_ppVoid[iIndex + 1], &m_ppVoid[iIndex], (cur - iIndex) * sizeof(LPVOID));
+		}
+		m_ppVoid[iIndex] = pTemp;
+		return true;
+	}
+
 	bool CStdPtrArray::SetAt(int iIndex, LPVOID pData)
 	{
 		if( iIndex < 0 || iIndex >= m_nCount ) return false;

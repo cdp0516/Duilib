@@ -44,6 +44,7 @@ namespace DuiLib {
 		int GetCount() const;
 		bool Add(CControlUI* pControl);
 		bool AddAt(CControlUI* pControl, int iIndex);
+		bool MoveTo(CControlUI* pControl, int iIndex);
 		bool Remove(CControlUI* pControl);
 		bool RemoveAt(int iIndex);
 		void RemoveAll();

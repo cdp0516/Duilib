@@ -139,9 +139,9 @@ namespace DuiLib {
 		virtual UINT_PTR GetTag() const; // 辅助函数，供用户使用
 		virtual void SetTag(UINT_PTR pTag); // 辅助函数，供用户使用
 		template <class AnyType>
-		void SetTag(const AnyType& t);
+		void SetAnyTag(const AnyType& t);
 		template <class AnyType>
-		AnyType GetTag();
+		AnyType GetAnyTag();
 
 		// 一些重要的属性
 		virtual bool IsVisible() const;
@@ -254,13 +254,13 @@ namespace DuiLib {
 	};
 
 	template<class AnyType>
-	inline void CControlUI::SetTag(const AnyType & t)
+	inline void CControlUI::SetAnyTag(const AnyType & t)
 	{
 		m_anyTag = t;
 	}
 
 	template<class AnyType>
-	inline AnyType CControlUI::GetTag()
+	inline AnyType CControlUI::GetAnyTag()
 	{
 		return any_cast<AnyType>(m_anyTag); 
 	}

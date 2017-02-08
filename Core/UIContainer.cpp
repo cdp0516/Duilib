@@ -97,6 +97,21 @@ namespace DuiLib
 		return m_items.InsertAt(iIndex, pControl);
 	}
 
+	bool CContainerUI::MoveTo(CControlUI * pControl, int iIndex)
+	{
+		if (!pControl || iIndex < 0 || iIndex > m_items.GetSize() - 1 || iIndex == GetItemIndex(pControl))
+			return false;
+		else
+		{
+			if (IsVisible())
+				NeedUpdate();
+			else 
+				pControl->SetInternVisible(false);
+
+			return m_items.MoveTo(iIndex, pControl);
+		}
+	}
+
 	bool CContainerUI::Remove(CControlUI* pControl)
 	{
 		if( pControl == NULL) return false;
