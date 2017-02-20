@@ -186,6 +186,9 @@
     <ClCompile Include="Layout\UIVerticalSplitLayout.cpp">
       <Filter>Source Files\Layout</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\UIAction.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UIlib.h">
