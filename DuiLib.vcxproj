@@ -562,6 +562,7 @@
     <ClInclude Include="Utils\log.h" />
     <ClInclude Include="Utils\observer_impl_base.h" />
     <ClInclude Include="Utils\stb_image.h" />
+    <ClInclude Include="Utils\UIAction.h" />
     <ClInclude Include="Utils\UIDelegate.h" />
     <ClInclude Include="Utils\UIShadow.h" />
     <ClInclude Include="Utils\Utils.h" />

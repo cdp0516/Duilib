@@ -209,7 +209,7 @@ protected:                                                                \
 	//声明结束
 #define DUI_END_MESSAGE_MAP()                                             \
 	{ _T(""), _T(""), DuiSig_end, (DUI_PMSG)0 }                           \
-	};                                                                        \
+	};                                                                        
 
 
 	//定义消息类型--执行函数宏

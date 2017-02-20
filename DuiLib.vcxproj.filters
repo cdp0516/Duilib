@@ -350,5 +350,8 @@
     <ClInclude Include="Layout\UIVerticalSplitLayout.h">
       <Filter>Header Files\Layout</Filter>
     </ClInclude>
+    <ClInclude Include="Utils\UIAction.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

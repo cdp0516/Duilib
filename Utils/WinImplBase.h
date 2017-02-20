@@ -11,6 +11,7 @@ namespace DuiLib
 		, public IMessageFilterUI
 		, public IDialogBuilderCallback
 		, public IQueryControlText
+		, public CUIAction
 	{
 	public:
 		WindowImplBase(){};
@@ -19,7 +20,7 @@ namespace DuiLib
 		virtual void InitResource(){};
 		// 每个窗口都可以重写
 		virtual void InitWindow(){};
-		virtual void OnFinalMessage( HWND hWnd );
+		virtual void OnFinalMessage(HWND hWnd);
 		virtual void Notify(TNotifyUI& msg);
 
 		DUI_DECLARE_MESSAGE_MAP()
@@ -66,6 +67,7 @@ namespace DuiLib
 		virtual LRESULT OnRButtonDown(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& bHandled);
 		virtual LRESULT OnRButtonUp(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& bHandled);
 		virtual LRESULT OnMouseMove(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& bHandled);
+		virtual LRESULT OnTimer(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 		virtual LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
 		virtual LRESULT HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 		virtual LONG GetStyle();

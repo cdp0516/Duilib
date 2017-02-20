@@ -68,6 +68,7 @@
 #include "Utils/UIShadow.h"
 #include "Utils/UIDelegate.h"
 #include "Utils/DragDropImpl.h"
+#include "Utils/UIAction.h"
 #include "Core/UIDefine.h"
 #include "Core/UIResourceManager.h"
 #include "Core/UIManager.h"

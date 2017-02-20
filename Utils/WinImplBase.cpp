@@ -9,7 +9,7 @@ namespace DuiLib
 		DUI_ON_MSGTYPE(DUI_MSGTYPE_CLICK,OnClick)
 	DUI_END_MESSAGE_MAP()
 
-	void WindowImplBase::OnFinalMessage( HWND hWnd )
+	void WindowImplBase::OnFinalMessage(HWND hWnd)
 	{
 		m_pm.RemovePreMessageFilter(this);
 		m_pm.RemoveNotifier(this);
@@ -269,6 +269,8 @@ namespace DuiLib
 		m_pm.AddNotifier(this);
 		// 窗口初始化完毕
 		InitWindow();
+		// 启动ui action timer
+		InitUIAction(*this);
 		return 0;
 	}
 
@@ -338,6 +340,16 @@ namespace DuiLib
 		return 0;
 	}
 
+	LRESULT WindowImplBase::OnTimer(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & bHandled)
+	{
+		bHandled = FALSE;
+		if (wParam == TIMER_UI_ACTION)
+		{
+			DoOneAction();
+		}
+		return bHandled;
+	}
+
 	LRESULT WindowImplBase::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
 		LRESULT lRes = 0;
@@ -370,6 +382,7 @@ namespace DuiLib
 		case WM_RBUTTONDOWN:	lRes = OnRButtonDown(uMsg, wParam, lParam, bHandled); break;
 		case WM_MOUSEMOVE:		lRes = OnMouseMove(uMsg, wParam, lParam, bHandled); break;
 		case WM_MOUSEHOVER:		lRes = OnMouseHover(uMsg, wParam, lParam, bHandled); break;
+		case WM_TIMER:			lRes = OnTimer(uMsg, wParam, lParam, bHandled); break;
 		default:				bHandled = FALSE; break;
 		}
 		if (bHandled) return lRes;
