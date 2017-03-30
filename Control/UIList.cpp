@@ -149,6 +149,17 @@ namespace DuiLib {
 		}
 		if (!m_pList->AddAt(pControl, iIndex)) return false;
 
+		// 如果在选择的item之前插入，需要修改保存的index列表
+		for (int i = 0; i < m_aSelItems.GetSize(); i++)
+		{
+			int iSelIndex = (int)m_aSelItems.GetAt(i);
+			if (iIndex <= iSelIndex)
+			{
+				m_aSelItems.Remove(i);
+				m_aSelItems.Add((LPVOID)(iSelIndex + 1));
+			}
+		}
+
 		// The list items should know about us
 		IListItemUI* pListItem = static_cast<IListItemUI*>(pControl->GetInterface(_T("ListItem")));
 		if( pListItem != NULL ) {
