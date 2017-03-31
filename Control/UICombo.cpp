@@ -36,6 +36,11 @@ namespace DuiLib {
 		{
 			EnsureVisible(m_iOldSel);
 		}
+		else if (msg.sType == DUI_MSGTYPE_ITEMCLICK)
+		{
+			if (m_pOwner)
+				m_pOwner->PostSelectedEvent();
+		}
 	}
 
 	void CComboWnd::Init(CComboUI* pOwner)
@@ -1080,6 +1085,12 @@ namespace DuiLib {
 			if( !DrawImage(hDC, (LPCTSTR)m_sNormalImage) ) m_sNormalImage.Empty();
 			else return;
 		}
+	}
+
+	void CComboUI::PostSelectedEvent()
+	{
+		if (m_pManager != NULL)
+			m_pManager->SendNotify(this, DUI_MSGTYPE_ITEMSELECTED, 0, 0);
 	}
 
 	void CComboUI::PaintText(HDC hDC)

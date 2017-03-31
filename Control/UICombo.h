@@ -112,6 +112,7 @@ namespace DuiLib {
 		void DoPaint(HDC hDC, const RECT& rcPaint);
 		void PaintText(HDC hDC);
 		void PaintStatusImage(HDC hDC);
+		void PostSelectedEvent();
 
 	protected:
 		CComboWnd* m_pWindow;
