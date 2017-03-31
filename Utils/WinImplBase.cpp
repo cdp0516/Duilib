@@ -188,6 +188,12 @@ namespace DuiLib
 		return 0;
 	}
 
+	LRESULT WindowImplBase::OnMoving(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & bHandled)
+	{
+		bHandled = FALSE;
+		return 0;
+	}
+
 	LRESULT WindowImplBase::OnChar(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 	{
 		bHandled = FALSE;
@@ -368,6 +374,7 @@ namespace DuiLib
 		case WM_MOUSEWHEEL:		lRes = OnMouseWheel(uMsg, wParam, lParam, bHandled); break;
 #endif
 		case WM_SIZE:			lRes = OnSize(uMsg, wParam, lParam, bHandled); break;
+		case WM_MOVING:			lRes = OnMoving(uMsg, wParam, lParam, bHandled); break;
 		case WM_CHAR:			lRes = OnChar(uMsg, wParam, lParam, bHandled); break;
 		case WM_SYSCOMMAND:		lRes = OnSysCommand(uMsg, wParam, lParam, bHandled); break;
 		case WM_KEYDOWN:		lRes = OnKeyDown(uMsg, wParam, lParam, bHandled); break;
