@@ -10,7 +10,7 @@ namespace DuiLib
 		}
 	}
 
-	void CUIAction::AddAction(std::function<void()> f)
+	void CUIAction::AddAction(const std::function<void()>& f)
 	{
 		std::lock_guard<std::mutex> _lock(_action_lock);
 		_actions.push(f);

@@ -882,6 +882,7 @@
 		<Attribute name="itemlinecolor" default="0x00000000" type="DWORD" comment="item行分割线颜色"/>
 		<Attribute name="itemshowhtml" default="false" type="BOOL" comment="item是否使用类html富文本绘制,如(false)"/>
 		<Attribute name="multiexpanding" default="false" type="BOOL" comment="是否支持多个item同时打开,如(false)"/>
+		<Attribute name="multiselect" default="false" type="BOOL" comment="是否支持同时选择多个item"/>
 	</List>
 	<ListHeader parent="HorizontalLayout" notifies="setfocus killfocus timer windowinit(root)">
 		<Attribute name="name" default="" type="STRING" comment="控件名字，同一窗口内必须唯一，如(testbtn)"/>

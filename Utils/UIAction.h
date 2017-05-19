@@ -10,7 +10,7 @@ namespace DuiLib {
 	{
 	public:
 		void InitUIAction(HWND hwnd);
-		void AddAction(std::function<void()>f);
+		void AddAction(const std::function<void()>& f);
 		void DoOneAction();
 		
 	protected:
