@@ -299,6 +299,47 @@ namespace DuiLib {
 		return true;
 	}
 
+	bool CComboUI::SelectItem(LPCTSTR text, bool bTakeFocus)
+	{
+		int old = m_iCurSel;
+		bool find = false;
+		for (int i = 0; i < m_items.GetSize(); i++)
+		{
+			CControlUI* pControl = static_cast<CControlUI*>(m_items[i]);
+			IListItemUI* pListItem = static_cast<IListItemUI*>(pControl->GetInterface(_T("ListItem")));
+			if (pControl->GetText() == text)
+			{
+				find = true;
+				pListItem->Select(true);
+				m_iCurSel = i;
+
+				if (m_pWindow != NULL || bTakeFocus)
+				{
+					pControl->SetFocus();
+				}
+
+				break;
+			}
+		}
+
+		if (m_iCurSel == old)
+			return true;
+
+		if (find)
+		{
+			CControlUI* pControl = static_cast<CControlUI*>(m_items[old]);
+			IListItemUI* pListItem = static_cast<IListItemUI*>(pControl->GetInterface(_T("ListItem")));
+			pListItem->Select(false);
+			
+			if (m_pManager != NULL) 
+				m_pManager->SendNotify(this, DUI_MSGTYPE_ITEMSELECT, m_iCurSel, old);
+
+			Invalidate();
+		}
+		
+		return true;
+	}
+
 	bool CComboUI::SelectMultiItem(int iIndex, bool bTakeFocus)
 	{
 		return SelectItem(iIndex, bTakeFocus);
