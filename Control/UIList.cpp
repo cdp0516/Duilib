@@ -197,12 +197,13 @@ namespace DuiLib {
 			}
 		}
 
-		if( iIndex == m_iCurSel && m_iCurSel >= 0 ) {
-			int iSel = m_iCurSel;
-			m_iCurSel = -1;
-			SelectItem(FindSelectable(iSel, false));
-		}
-		else if( iIndex < m_iCurSel ) m_iCurSel -= 1;
+		// todo: fix the auto select bug
+		//if( iIndex == m_iCurSel && m_iCurSel >= 0 ) {
+		//	int iSel = m_iCurSel;
+		//	m_iCurSel = -1;
+		//	SelectItem(FindSelectable(iSel, false));
+		//}
+		//else if( iIndex < m_iCurSel ) m_iCurSel -= 1;
 		return true;
 	}
 
@@ -216,12 +217,13 @@ namespace DuiLib {
 			if( pListItem != NULL ) pListItem->SetIndex(i);
 		}
 
-		if( iIndex == m_iCurSel && m_iCurSel >= 0 ) {
-			int iSel = m_iCurSel;
-			m_iCurSel = -1;
-			SelectItem(FindSelectable(iSel, false));
-		}
-		else if( iIndex < m_iCurSel ) m_iCurSel -= 1;
+		// todo: fix the auto select bug
+		//if( iIndex == m_iCurSel && m_iCurSel >= 0 ) {
+		//	int iSel = m_iCurSel;
+		//	m_iCurSel = -1;
+		//	SelectItem(FindSelectable(iSel, false));
+		//}
+		//else if( iIndex < m_iCurSel ) m_iCurSel -= 1;
 		return true;
 	}
 

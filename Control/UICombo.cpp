@@ -327,9 +327,12 @@ namespace DuiLib {
 
 		if (find)
 		{
-			CControlUI* pControl = static_cast<CControlUI*>(m_items[old]);
-			IListItemUI* pListItem = static_cast<IListItemUI*>(pControl->GetInterface(_T("ListItem")));
-			pListItem->Select(false);
+			if (old > 0)
+			{
+				CControlUI* pControl = static_cast<CControlUI*>(m_items[old]);
+				IListItemUI* pListItem = static_cast<IListItemUI*>(pControl->GetInterface(_T("ListItem")));
+				pListItem->Select(false);
+			}
 			
 			if (m_pManager != NULL) 
 				m_pManager->SendNotify(this, DUI_MSGTYPE_ITEMSELECT, m_iCurSel, old);
